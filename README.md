@@ -1,4 +1,4 @@
-# foamcutter3D
+# Simple mastermind
 
 Mastermind game for Android
 
