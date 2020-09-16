@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public string levelToLoad;
-    public GameObject settingsWindow;
+    public Canvas settingsWindow;
 
     public void NewGame()
     {
@@ -13,13 +13,12 @@ public class MainMenu : MonoBehaviour
 
     public void SettingsWindow()
     {
-        settingsWindow.SetActive(true);
+        settingsWindow.enabled =true;
     }
 
     public void CloseSettingsWindow()
     {
-        settingsWindow.SetActive(false);
-
+        settingsWindow.enabled = false;
     }
 
     public void QuitGame()

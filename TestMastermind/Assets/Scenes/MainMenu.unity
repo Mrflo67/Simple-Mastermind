@@ -554,7 +554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelToLoad: MasterMindBoard
-  settingsWindow: {fileID: 1487722723}
+  settingsWindow: {fileID: 904078725}
 --- !u!1 &715274860
 GameObject:
   m_ObjectHideFlags: 0

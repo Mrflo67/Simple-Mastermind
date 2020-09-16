@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,8 +40,8 @@ public class GameManager : MonoBehaviour
         instance = this;
 
         _colorList = new List<Color>();
-        maxRow = rows.Length-1;
-        score = (maxRow + 1) * 10;
+        maxRow = rows.Length;
+        score = (maxRow--) * 10;
 
         colorScrollbar.SetActive(false);
         colorScrollRect.enabled = false;
@@ -140,6 +141,7 @@ public class GameManager : MonoBehaviour
 
         code.GenerateRandomCombination(_colorList, doubles);
         code.Hide();
+        //code.Show(); //debug only
 
         currentRow = 0;
         rows[currentRow].Enable();
@@ -184,8 +186,9 @@ public class GameManager : MonoBehaviour
         else
         {
             rows[++currentRow].Enable();
-            score -= 10;
         }
+
+        score -= 10;
 
         return guessFeedback;
     }
@@ -205,7 +208,7 @@ public class GameManager : MonoBehaviour
         code.Show();
 
         //affiche écran gameOver
-        GameOverManager.instance.OnGameOver("Game Over !\n Score : " + score.ToString());
+        GameOverManager.instance.OnGameOver("Game Over !\n Score : 0");
     }
 
 }

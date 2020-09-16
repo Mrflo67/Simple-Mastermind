@@ -107,7 +107,7 @@ public class Code : MonoBehaviour
             checkFeedback.Add(Color.black);
         }
 
-        if (blacks == 4)
+        if (blacks == _length)
             return true;
 
         for (var i = 0; i < whites; i++)

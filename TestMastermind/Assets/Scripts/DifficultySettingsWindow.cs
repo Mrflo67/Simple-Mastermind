@@ -28,7 +28,7 @@ public class DifficultySettingsWindow : MonoBehaviour
             doubleToggle.isOn = false;
         }
 
-        GameSettings.instance.SetCodeLength((int)value);
+        GameSettings.instance.SetCodeLength(value);
     }
 
     public void OnDoubleToggleChange(bool value)
@@ -46,7 +46,7 @@ public class DifficultySettingsWindow : MonoBehaviour
         GameSettings.instance.AllowGaps(value);
     }
 
-        private void GetCurrentSettings()
+    private void GetCurrentSettings()
     {
         CodeDifficulty currentCodeDifficulty = GameSettings.instance.difficulty.Code;
 
