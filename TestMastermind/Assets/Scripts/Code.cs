@@ -75,7 +75,7 @@ public class Code : MonoBehaviour
         int whites = 0;
         int checkCount = _length;
 
-        // Check for pegs matches in good positions
+        // Check for good positions
         // Reverse order to allow list deletions
         for(var i=checkCount-1; i>=0; i--)
         {
@@ -87,7 +87,7 @@ public class Code : MonoBehaviour
             }
         }
 
-        // Check for remaining pegs matches in wrong position
+        // Check for remaining in wrong position
 
         checkCount = guessCopy.Count;
         for (var i = checkCount - 1; i >= 0; i--)

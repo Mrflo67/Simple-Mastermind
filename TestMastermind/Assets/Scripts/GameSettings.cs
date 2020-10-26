@@ -13,7 +13,7 @@ public class GameSettings : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogWarning("Il y a plus d'une instance de gameSettings dans la scène");
+            Debug.LogWarning("Ther's already a gameSettings instance !");
             return;
         }
 

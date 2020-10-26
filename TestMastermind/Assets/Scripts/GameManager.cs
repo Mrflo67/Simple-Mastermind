@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Sockets;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,16 +22,18 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    public int scrollActivationThreshold;
     public int codeLength;
     public int currentRow;
     public int maxRow;
     public int score;
 
+
     private void Awake()
     {
         if (instance != null)
         {
-            Debug.LogWarning("IL y a plus d'une instance de GameManager dans la scène");
+            Debug.LogWarning("Ther's already a gameManager instance");
             return;
         }
 
@@ -60,13 +60,17 @@ public class GameManager : MonoBehaviour
     public void ApplySelectedColorInSelectedHole(Color colorToApply)
     {
         Image targetImage = selectedHole.GetComponent<Image>();
-
+		
+		//if the hole is already filled with this color, remove it
+		//else apply the selected color 
         if(code.CompareColors(targetImage.color, colorToApply))
         {
             targetImage.color = _gapColor;
-            return;
         }
-        targetImage.color = colorToApply;
+		else
+		{
+			targetImage.color = colorToApply;
+		}
     }
 
 
@@ -79,10 +83,7 @@ public class GameManager : MonoBehaviour
 
         _colorList.Clear();
         
-      //  List<Color> colorListSettings = GameSettings.instance.difficulty.SelectedColors;
         List<Color> colorListSettings = GameSettings.instance.difficulty.colorDifficulty.GetSelectedColors();
-
-
 
         for (var i=0; i<colorListSettings.Count; i++)
         {
@@ -93,7 +94,7 @@ public class GameManager : MonoBehaviour
             colorSelector[i].gameObject.SetActive(true);
         }
 
-        if(colorListSettings.Count > 7)
+        if(colorListSettings.Count > scrollActivationThreshold)
         {
             colorScrollbar.SetActive(true);
             colorScrollRect.enabled = true;
@@ -141,17 +142,16 @@ public class GameManager : MonoBehaviour
 
         code.GenerateRandomCombination(_colorList, doubles);
         code.Hide();
-        //code.Show(); //debug only
+        //code.Show(); //for debug
 
         currentRow = 0;
         rows[currentRow].Enable();
-
     }
 
-
-    public void SetCodeLength(float value)
+    //newLength is float for dynamic slider binding
+    public void SetCodeLength(float newLength)
     {
-        int iValue = (int)value;
+        int iValue = (int)newLength;
 
         codeLength = iValue;
         code.Length = iValue;
@@ -161,12 +161,11 @@ public class GameManager : MonoBehaviour
 
 
     //set number of cells (holes) displayed according to code length (between minSize and maxSize)
-    private void UpdateRowsDisplay(int value)
+    private void UpdateRowsDisplay(int cellsToDisplay)
     {
-        //guess cells count should be equal to code cells
         foreach (Row guessRank in rows)
         {
-            guessRank.setGuessLength(value);
+            guessRank.setGuessLength(cellsToDisplay);
         }
     }
 
@@ -195,19 +194,13 @@ public class GameManager : MonoBehaviour
 
     private void Win()
     {
-        //revele le code
         code.Show();
-
-        //affiche écran gameOver
         GameOverManager.instance.OnGameOver("You found the code !\n Score : " + score.ToString());
     }
 
     private void Lose()
     {
-        //revele le code
         code.Show();
-
-        //affiche écran gameOver
         GameOverManager.instance.OnGameOver("Game Over !\n Score : 0");
     }
 
