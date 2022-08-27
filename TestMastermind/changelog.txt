@@ -1,5 +1,8 @@
 **Mastermind changelog**
 
+26/10/2020
+- improved code readability
+
 16/09/20
 - Fixed win not triggering when code with size was under 4
 - Adjusted scoring
